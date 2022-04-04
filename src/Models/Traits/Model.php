@@ -30,11 +30,11 @@ trait Model
         throw new APIException(['message' => __('base::responses.404')], 404);
     }
 
-    public static function findModelOrCreate() : EloquentModel
+    public static function findModelOrCreate(): EloquentModel
     {
         $model = get_called_class()::where('created_by', auth()->user()->id)
-        ->where('status', get_called_class()::STATUS_CREATION)
-        ->first();
+            ->where('status', get_called_class()::STATUS_CREATION)
+            ->first();
 
         if ($model) {
             return $model;
@@ -45,7 +45,7 @@ trait Model
 
     protected static function createEmptyModel()
     {
-        $called_class= get_called_class();
+        $called_class = get_called_class();
         $model = new $called_class;
         $model->created_by = auth()->user()->id;
         $model->status = $model::STATUS_CREATION;
@@ -86,95 +86,87 @@ trait Model
         return $this->hasOne('App\Models\User', 'id', 'updated_by');
     }
 
-    public function getLabels() : array
+    public function getLabels(): array
     {
         return [];
     }
 
-    public static function getFilters() : array
+    public static function getFilters(): array
     {
         return [];
     }
 
-    /**
-     * Obtiene el nombre limpio de un atributo.
-     *
-     * @return String nombre limpio
-     */
-    public static function getLabel(string $attribute, string $package = '', string $class = '') : string
+    public function getTranslations(): array
     {
-        if (str_contains($attribute, '.')) {
-            $explode = explode('.', $attribute);
-            $model = get_called_class();
-            $model = new $model;
-
-            return $model->{$explode[0]}(true)::getLabel($explode[1]);
-        }
-
-        if ($package) {
-            $package .= '::';
-        } else {
-            if (get_called_class()::$package) {
-                $package = get_called_class()::$package . '::';
-            }
-        }
-
-        if (!$class) {
-            $class = Str::kebab(class_basename(get_called_class()));
-        }
-
-        $trans = $package . 'models.' . $class . '.' . $attribute;
-
-        if (trans()->has($trans)) {
-            return __($trans);
-        }
-
-        return __($package . 'models.common.' . $attribute);
+        return [];
     }
 
-    /**
-     * Genera un Slug el cual puede ser unico o no
-     * @param  string  $attribute    atributo del cual se debe generar el slug
-     * @param  string  $slug         atributo donde se va a guardar el slig
-     * @param  boolean $unique       determina si el slug debe ser unico o  no
-     */
-    public function generateSlug($attribute = 'name', $slug = 'seoname', $unique = true)
+    public function gender(): string
     {
-        if (empty($this->id) or $this->isDirty($attribute)) {
-            $count = $this::where($attribute, $this->$attribute)->count();
-            $this->$slug = Str::slug($this->$attribute, '-');
-            if ($unique) {
-                if ($count) {
-                    $count++;
-                    $this->$slug = $this->$slug . '-' . $count;
-                }
-            }
+        $gender = $this->getTranslations()['gender'] ?? '';
+        $singular = $this->getTranslations()['singular'] ?? '';
+
+        if ($gender) {
+            return $gender;
         }
+
+        return strtolower(substr($singular, -1)) == 'a' ? 0 : 1;
     }
 
-    /**
-     * Obtiene los status de un modelo por defecto
-     * @return array
-     */
-    public function getStatus()
+    public function getDefaultTranslations(): array
     {
+        $gender = $this->gender();
+        $singular = $this->getTranslations()['singular'] ?? '';
+
         return [
-            self::STATUS_DELETED => __('base::models.status.deleted'),
-            self::STATUS_CREATION => __('base::models.status.creation'),
-            self::STATUS_ACTIVE => __('base::models.status.active'),
+            'create' => __('core::models.create', ['model' => $singular]),
+            'edit' => __('core::models.update', ['model' => $singular]),
+            'show' => __('core::models.show', ['model' => $singular]),
+            'delete' => __('core::models.delete', ['model' => $singular]),
+            'delete_question' => trans_choice('core::models.delete_question', $gender, ['item' => $singular]),
+            'showed' => trans_choice('core::models.showed', $gender, ['item' => $singular]),
+            'created' => trans_choice('core::models.created', $gender, ['item' => $singular]),
+            'edited' => trans_choice('core::models.edited', $gender, ['item' => $singular]),
+            'deleted' => trans_choice('core::models.deleted', $gender, ['item' => $singular]),
+            'add_element' => trans_choice('core::models.add_element', $gender, ['item' => $singular]),
+            'id' => __('core::models.id'),
+            'status' => __('core::models.status'),
+            'created_at' => __('core::models.created_at'),
+            'updated_at' => __('core::models.updated_at'),
+            'deleted_at' => __('core::models.deleted_at'),
+            'created_by' => __('core::models.created_by'),
+            'updated_by' => __('core::models.updated_by'),
+            'deleted_by' => __('core::models.deleted_by'),
+            'grid' => [
+                'advanced_search' => __('core::models.grid.advanced_search'),
+                'empty' => __('core::models.grid.empty'),
+                'not_assigned' => __('core::models.grid.not_assigned'),
+                'search' => __('core::models.grid.search'),
+                'clear' => __('core::models.grid.clear'),
+            ],
+            'save' => 'Guardar',
+            'close' => 'Cerrar',
+            'continue' => 'Continuar',
+            'cancel' => 'Cancelar',
         ];
     }
 
-    /**
-     * Obtiene la ruta donde del objeto
-     * @return string
-     */
-    public static function getRoute(string $name, $params = [])
+    public function getFullTranslations(): array
     {
-        return route(self::getClassName('kebab') . '.' . $name, $params);
+        return array_merge($this->getTranslations(), $this->getDefaultTranslations(), $this->getLabels());
     }
 
-    public static function getClassName(string $type = '', bool $plural = true)
+    public function getRoute(string $name, $params = [])
+    {
+        return route($this->getClassName('kebab') . '.' . $name, $params);
+    }
+
+    public function getRouteApi(string $name, $params = [])
+    {
+        return route('api.' . $this->getClassName('kebab') . '.' . $name, $params);
+    }
+
+    public function getClassName(string $type = '', bool $plural = false)
     {
         $class = get_class()::$route ?? (new \ReflectionClass(get_called_class()))->getShortName();
 
@@ -195,76 +187,5 @@ trait Model
         }
 
         return $class;
-    }
-
-    public static function getTranslate(string $translate)
-    {
-        $female = self::gender();
-
-        switch ($translate) {
-            case 'create':
-                return __('base::models.common.create', ['model' => self::getLabel('singular')]);
-
-            case 'edit':
-                return __('base::models.common.update', ['model' => self::getLabel('singular')]);
-
-            case 'show':
-                return __('base::models.common.show', ['model' => self::getLabel('singular')]);
-
-            case 'delete':
-                return __('base::models.common.delete', ['model' => self::getLabel('singular')]);
-
-            case 'delete_question':
-                return trans_choice('base::models.common.delete_question', $female, ['item' => self::getLabel('singular')]);
-
-            case 'showed':
-                return trans_choice('base::models.common.showed', $female, ['item' => self::getLabel('singular')]);
-
-            case 'created':
-                return trans_choice('base::models.common.created', $female, ['item' => self::getLabel('singular')]);
-
-            case 'edited':
-                return trans_choice('base::models.common.edited', $female, ['item' => self::getLabel('singular')]);
-
-            case 'deleted':
-                return trans_choice('base::models.common.deleted', $female, ['item' => self::getLabel('singular')]);
-
-            case 'add-element':
-                return trans_choice('base::models.common.add-element', $female, ['item' => self::getLabel('singular')]);
-
-            default:
-                // code...
-                break;
-        }
-    }
-
-    public function input(string $field)
-    {
-        return Base::input([
-                    'name' =>  $this->getTable() . '_' . $field,
-                    'value' => old($field) ?? $this->$field,
-                    'placeholder' => '',
-                    'model_remove' => $this,
-                ])->setTranslate(self::getLabel($field));
-    }
-
-    public static function gender()
-    {
-        return strtolower(substr(self::getLabel('singular'), -1)) == 'a' ? 0 : 1;
-    }
-
-    public function getKeyId()
-    {
-        return $this->{$this::$keyId};
-    }
-
-    public function scopeStatus($query, $type)
-    {
-        return $query->where('status', $type);
-    }
-
-    public function scopeActive($query)
-    {
-        return $query->where('status', self::STATUS_ACTIVE);
     }
 }
