@@ -173,6 +173,14 @@ trait Model
         return route('api.' . $this->getClassName('kebab') . '.' . $name, $params);
     }
 
+    public function getIndexRoutes(): array
+    {
+        return [
+            'resource' => $this->getRoute('index'),
+            'api' => $this->getRouteApi('index'),
+        ];
+    }
+
     public function getClassName(string $type = '', bool $plural = false)
     {
         $class = get_class()::$route ?? (new \ReflectionClass(get_called_class()))->getShortName();
