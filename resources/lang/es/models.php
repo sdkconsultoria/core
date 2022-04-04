@@ -41,4 +41,11 @@ return [
     'close' => 'Cerrar',
     'continue' => 'Continuar',
     'cancel' => 'Cancelar',
+    'pagination' => [
+        'showing' => 'Mostrando',
+        'of' => 'de',
+        'results' => 'resultados',
+        'next' => 'Siguiente',
+        'previous' => 'Anterior',
+    ]
 ];

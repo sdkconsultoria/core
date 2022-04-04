@@ -148,6 +148,13 @@ trait Model
             'close' => 'Cerrar',
             'continue' => 'Continuar',
             'cancel' => 'Cancelar',
+            'pagination' => [
+                'showing' => __('core::models.pagination.showing'),
+                'of' => __('core::models.pagination.of'),
+                'results' => __('core::models.pagination.results'),
+                'next' => __('core::models.pagination.next'),
+                'previous' => __('core::models.pagination.previous'),
+            ]
         ];
     }
 
