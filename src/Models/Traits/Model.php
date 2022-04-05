@@ -96,6 +96,21 @@ trait Model
         return [];
     }
 
+    public function getParseSearchFilters()
+    {
+        $filters = [];
+
+        foreach ($this->getFilters() as $key => $filter) {
+            if (is_array($filter)) {
+                $filters[] = ['field' => $key];
+            } else {
+                $filters[] = ['field' => $filter];
+           }
+        }
+
+        return $filters;
+    }
+
     public function getTranslations(): array
     {
         return [];
