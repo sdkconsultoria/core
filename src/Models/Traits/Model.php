@@ -12,6 +12,7 @@ use Sdkconsultoria\Base\Exceptions\APIException;
 trait Model
 {
     public $canCreateEmpty = true;
+    public static $keyId = 'id';
 
     public function save(array $options = [])
     {
@@ -178,6 +179,11 @@ trait Model
         return array_merge($this->getTranslations(), $this->getDefaultTranslations(), $this->getLabels());
     }
 
+    public function getTranslation(string $label): string
+    {
+        return $this->getFullTranslations()[$label] ?? $label;
+    }
+
     public function getRoute(string $name, $params = [])
     {
         return route($this->getClassName('kebab') . '.' . $name, $params);
@@ -217,5 +223,10 @@ trait Model
         }
 
         return $class;
+    }
+
+    public function getKeyId()
+    {
+        return $this->{$this::$keyId};
     }
 }

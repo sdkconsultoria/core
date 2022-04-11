@@ -13,5 +13,5 @@ class ResourceController extends Controller
     use ResourceControllerTrait;
 
     protected $model = '';
-    protected $view = '';
+    protected $view = 'base::back.default';
 }

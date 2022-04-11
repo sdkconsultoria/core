@@ -12,6 +12,7 @@ trait BaseModel
 {
     use HasFactory;
     use TraitBaseModel;
+    use Field;
     use Authorize;
     use LoadFromRequest;
     use SoftDeletes;
