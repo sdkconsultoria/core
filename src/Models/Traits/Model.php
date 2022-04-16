@@ -89,12 +89,22 @@ trait Model
 
     public function getLabels(): array
     {
-        return [];
+        $labels = [];
+        foreach ($this->getFields()  as $field) {
+            $labels[$field['name']] = $field['label'];
+        }
+
+        return $labels;
     }
 
-    public static function getFilters(): array
+    public function getFilters(): array
     {
-        return [];
+        $filters = [];
+        foreach ($this->getFields()  as $field) {
+            $filters[] = $field['filter'];
+        }
+
+        return $filters;
     }
 
     public function getParseSearchFilters()

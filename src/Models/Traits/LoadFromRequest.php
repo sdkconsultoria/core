@@ -14,16 +14,6 @@ trait LoadFromRequest
         return strtolower(class_basename($this));
     }
 
-    public function getValidationRules($request = '') : array
-    {
-        return [];
-    }
-
-    public function getUpdateValidationRules($request = '') : array
-    {
-        return $this->getValidationRules($request);
-    }
-
     public function loadDataFromCreateRequest(Request $request) : void
     {
         $this->validateRequest($request, $this->getValidationRules());
@@ -79,14 +69,5 @@ trait LoadFromRequest
         }
 
         return $attributes;
-    }
-
-    public function validateRequest(Request $request, array $rules)
-    {
-        $validator = Validator::make($request->all(), $rules, [], $this->getLabels());
-
-        if ($validator->fails()) {
-            throw new APIException($validator->errors()->toArray(), 403);
-        }
     }
 }

@@ -13,8 +13,7 @@ trait SearchableTrait
 {
     private function searchable($query, Request $request)
     {
-        $filters =  $this->model::getFilters();
-        $parameters =  $request->all();
+        $filters =  (new $this->model)->getFilters();
 
         foreach ($filters as $key => $value) {
             $parsed_options = $this->parseFilterOptions($key, $value);

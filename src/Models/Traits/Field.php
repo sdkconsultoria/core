@@ -5,11 +5,21 @@ namespace Sdkconsultoria\Core\Models\Traits;
 
 trait Field
 {
-    public function getFields()
+    public static array $fields = [];
+
+    public function getFields(): array
     {
-        foreach ($this->fields() as $field) {
-            # code...
+        if ($this::$fields) {
+            return $this::$fields;
         }
+
+        $this::$fields= [];
+
+        foreach ($this->fields() as $field) {
+            $this::$fields[] = $field->getField();
+        }
+
+        return $this::$fields;
     }
 
     public function getIndexFields()
