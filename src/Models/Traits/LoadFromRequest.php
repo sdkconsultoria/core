@@ -4,12 +4,13 @@ namespace Sdkconsultoria\Core\Models\Traits;
 
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model as EloquentModel;
+use Illuminate\Support\Str;
 
 trait LoadFromRequest
 {
     public function getApiEndpoint()
     {
-        return strtolower(class_basename($this));
+        return strtolower(Str::kebab(class_basename($this)));
     }
 
     public function loadDataFromCreateRequest(Request $request) : void

@@ -8,6 +8,7 @@ use Sdkconsultoria\Core\Models\Traits\Model as TraitBaseModel;
 use Sdkconsultoria\Core\Models\Traits\Authorize;
 use Sdkconsultoria\Core\Models\Traits\ValidateRequest;
 use Sdkconsultoria\Core\Models\Traits\LoadFromRequest;
+use Sdkconsultoria\Core\Models\Traits\Menu;
 
 trait BaseModel
 {
@@ -18,4 +19,5 @@ trait BaseModel
     use LoadFromRequest;
     use SoftDeletes;
     use ValidateRequest;
+    use Menu;
 }
