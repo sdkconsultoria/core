@@ -13,4 +13,6 @@ abstract class Model extends BaseModel
     public const STATUS_DELETED = 0;
     public const STATUS_CREATION = 20;
     public const STATUS_ACTIVE = 30;
+
+    public $canCreateEmpty = true;
 }

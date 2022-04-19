@@ -11,7 +11,6 @@ use Sdkconsultoria\Base\Exceptions\APIException;
 
 trait Model
 {
-    public $canCreateEmpty = true;
     public static $keyId = 'id';
 
     public function save(array $options = [])
