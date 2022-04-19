@@ -188,6 +188,12 @@ trait Model
         return array_merge($this->getTranslations(), $this->getDefaultTranslations(), $this->getLabels());
     }
 
+    public static function make()
+    {
+        $called_class = get_called_class();
+        return new $called_class;
+    }
+
     public function getTranslation(string $label): string
     {
         return $this->getFullTranslations()[$label] ?? $label;
