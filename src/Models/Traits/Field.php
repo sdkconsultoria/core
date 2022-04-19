@@ -34,4 +34,17 @@ trait Field
 
         return $fields;
     }
+
+    public function getIgnoredFields()
+    {
+        $fields = [];
+
+        foreach ($this->getFields() as $field) {
+            if (!$field['can_be_saved']) {
+                $fields[] = $field['name'];
+            }
+        }
+
+        return $fields;
+    }
 }

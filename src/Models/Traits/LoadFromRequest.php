@@ -4,8 +4,6 @@ namespace Sdkconsultoria\Core\Models\Traits;
 
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model as EloquentModel;
-use Illuminate\Support\Facades\Validator;
-use Sdkconsultoria\Base\Exceptions\APIException;
 
 trait LoadFromRequest
 {
@@ -52,9 +50,12 @@ trait LoadFromRequest
 
     private function assignValuesToModel(array $values, EloquentModel &$model ) : EloquentModel
     {
+        $this->removedIgnoredFields($values);
+
         foreach ($values as $attribute => $value) {
             $model->$attribute = $value;
         }
+
 
         return $model;
     }
@@ -69,5 +70,14 @@ trait LoadFromRequest
         }
 
         return $attributes;
+    }
+
+    protected function removedIgnoredFields(array &$values): array
+    {
+        foreach ($this->getIgnoredFields() as $field) {
+            unset($values[$field]);
+        }
+
+        return $values;
     }
 }
