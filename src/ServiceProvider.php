@@ -27,7 +27,8 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
     {
         if ($this->app->runningInConsole()) {
             $this->commands([
-                \Sdkconsultoria\Core\Console\Commands\Permissions::class,
+                \Sdkconsultoria\Core\Console\Commands\MakePermissions::class,
+                \Sdkconsultoria\Core\Console\Commands\MakeUser::class,
             ]);
         }
     }
