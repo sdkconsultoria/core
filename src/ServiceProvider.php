@@ -22,4 +22,13 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
     public function register()
     {
     }
+
+    private function registerCommands()
+    {
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                \Sdkconsultoria\Core\Console\Commands\Permissions::class,
+            ]);
+        }
+    }
 }
