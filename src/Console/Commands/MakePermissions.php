@@ -1,6 +1,6 @@
 <?php
 
-namespace Sdkconsultoria\Core\Console;
+namespace Sdkconsultoria\Core\Console\Commands;
 
 use Illuminate\Console\Command;
 use Spatie\Permission\Models\Permission;

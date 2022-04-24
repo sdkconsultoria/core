@@ -12,7 +12,6 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
     public function boot()
     {
         $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'core');
-        $this->registerCommands();
     }
 
     /**
@@ -22,15 +21,5 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
      */
     public function register()
     {
-    }
-
-    private function registerCommands()
-    {
-        if ($this->app->runningInConsole()) {
-            $this->commands([
-                \Sdkconsultoria\Core\Console\MakePermissions::class,
-                \Sdkconsultoria\Core\Console\MakeUser::class,
-            ]);
-        }
     }
 }
