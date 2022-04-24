@@ -1,6 +1,6 @@
 <?php
 
-namespace Sdkconsultoria\Core\Console\Commands;
+namespace Sdkconsultoria\Core\Console;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Hash;
