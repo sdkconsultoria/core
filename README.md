@@ -16,8 +16,14 @@ Ejecutando el comando
 composer require sdkconsultoria/core
 ```
 
-Instalar libreria
+inicializar libreria
 
 ```
-php artisan sdk:core-install
+php artisan sdk:core-install && php artisan sdk:permissions
 ```
+
+crear usuario con su token
+```
+php artisan sdk:users email=admin@sdkconsultoria.com --token
+```
+
