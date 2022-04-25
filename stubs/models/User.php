@@ -8,7 +8,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 use Sdkconsultoria\Core\Models\Traits\BaseModel as TraitBaseModel;
-use Sdkconsultoria\Base\Fields\TextField;
+use Sdkconsultoria\Core\Fields\TextField;
 use Illuminate\Support\Facades\Hash;
 
 class User extends Authenticatable implements MustVerifyEmail
