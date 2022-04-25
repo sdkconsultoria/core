@@ -19,7 +19,7 @@ composer require sdkconsultoria/core
 inicializar libreria
 
 ```
-php artisan sdk:core-install && php artisan sdk:permissions
+php artisan sdk:core-install && php artisan migrate:fresh && php artisan sdk:permissions
 ```
 
 crear usuario con su token
