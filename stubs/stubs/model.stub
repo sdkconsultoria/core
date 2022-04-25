@@ -3,7 +3,7 @@
 namespace {{ namespace }};
 
 use Sdkconsultoria\Core\Models\Model as BaseModel;
-use Sdkconsultoria\Base\Fields\TextField;
+use Sdkconsultoria\Core\Fields\TextField;
 
 class {{ class }} extends BaseModel
 {

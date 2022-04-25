@@ -25,8 +25,6 @@ class User extends Authenticatable implements MustVerifyEmail
     public const STATUS_CREATION = 20;
     public const STATUS_ACTIVE = 30;
 
-    public $canCreateEmpty = false;
-
     protected function fields()
     {
         return[
