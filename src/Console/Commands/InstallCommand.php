@@ -42,7 +42,7 @@ class InstallCommand extends Command
     {
         $this->copyStubs();
         $this->writteUserChanges();
-        // $this->writteConfig();
+        $this->writteServiceProvider();
 
         $this->info('SDK Core se instalo correctamente.');
     }
@@ -56,6 +56,7 @@ class InstallCommand extends Command
         (new Filesystem)->ensureDirectoryExists(app_path('stubs'));
         (new Filesystem)->copyDirectory(__DIR__.'/../../../stubs/stubs', base_path('stubs'));
         (new Filesystem)->copyDirectory(__DIR__.'/../../../stubs/routes', base_path('routes'));
+        (new Filesystem)->copyDirectory(__DIR__.'/../../../stubs/app', base_path('app'));
     }
 
     private function writteUserChanges()
@@ -64,10 +65,20 @@ class InstallCommand extends Command
         copy(__DIR__.'/../../../stubs/factories/UserFactory.php', base_path('database/factories/UserFactory.php'));
     }
 
-    private function writteConfig()
+    private function writteServiceProvider()
     {
-        (new Filesystem)->copyDirectory(__DIR__.'/../../../stubs/app/', base_path('app'));
-        (new Filesystem)->copyDirectory(__DIR__.'/../../../stubs/config/', base_path('config'));
+        $service_provider = "Sdkconsultoria\Core\ServiceProvider::class,";
+        $file = base_path('config') . '/app.php';
+
+        if(strpos(file_get_contents($file), $service_provider) !== false){
+            return;
+        }
+
+        $package = "Package Service Providers...\n         */";
+        $this->replaceInFile(
+            $package,
+            $package . "\n         $service_provider",
+            $file);
     }
 
     protected function replaceInFile($search, $replace, $path)
