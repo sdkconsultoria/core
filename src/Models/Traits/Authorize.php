@@ -3,7 +3,7 @@
 namespace Sdkconsultoria\Core\Models\Traits;
 
 use Illuminate\Support\Str;
-use Sdkconsultoria\Base\Exceptions\APIException;
+use Sdkconsultoria\Core\Exceptions\APIException;
 
 trait Authorize
 {
