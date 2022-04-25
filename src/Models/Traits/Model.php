@@ -7,7 +7,7 @@ use Illuminate\Support\Str;
 use Base;
 use Illuminate\Database\Eloquent\Model as EloquentModel;
 use Illuminate\Http\Request;
-use Sdkconsultoria\Base\Exceptions\APIException;
+use Sdkconsultoria\Core\Exceptions\APIException;
 
 trait Model
 {

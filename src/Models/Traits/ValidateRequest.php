@@ -5,7 +5,7 @@ namespace Sdkconsultoria\Core\Models\Traits;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model as EloquentModel;
 use Illuminate\Support\Facades\Validator;
-use Sdkconsultoria\Base\Exceptions\APIException;
+use Sdkconsultoria\Core\Exceptions\APIException;
 
 trait ValidateRequest
 {
