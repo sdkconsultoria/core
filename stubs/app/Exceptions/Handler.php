@@ -8,9 +8,19 @@ use Sdkconsultoria\Base\Exceptions\APIException;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Routing\Exception\RouteNotFoundException;
 
 class Handler extends ExceptionHandler
 {
+    /**
+     * A list of exception types with their corresponding custom log levels.
+     *
+     * @var array<class-string<\Throwable>, \Psr\Log\LogLevel::*>
+     */
+    protected $levels = [
+        //
+    ];
+
     /**
      * A list of the exception types that are not reported.
      *
@@ -64,7 +74,7 @@ class Handler extends ExceptionHandler
             return response()->json(json_decode($e->getMessage()), $e->getCode());
         }
 
-        if ($e instanceof AuthenticationException && $request->is('api/*')) {
+        if (($e instanceof AuthenticationException || $e instanceof RouteNotFoundException) && $request->is('api/*')) {
             return response()->json([
                 'message' => __('base::responses.401'),
                 'code' => 401,
