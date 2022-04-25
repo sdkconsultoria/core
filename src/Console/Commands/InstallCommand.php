@@ -42,7 +42,7 @@ class InstallCommand extends Command
     {
         $this->copyStubs();
         $this->writteUserChanges();
-        $this->writteConfig();
+        // $this->writteConfig();
 
         $this->info('SDK Core se instalo correctamente.');
     }
@@ -54,7 +54,8 @@ class InstallCommand extends Command
     private function copyStubs()
     {
         (new Filesystem)->ensureDirectoryExists(app_path('stubs'));
-        (new Filesystem)->copyDirectory(__DIR__.'/../../../stubs', base_path('stubs'));
+        (new Filesystem)->copyDirectory(__DIR__.'/../../../stubs/stubs', base_path('stubs'));
+        (new Filesystem)->copyDirectory(__DIR__.'/../../../stubs/routes', base_path('routes'));
     }
 
     private function writteUserChanges()
