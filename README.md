@@ -15,3 +15,9 @@ Ejecutando el comando
 ```
 composer require sdkconsultoria/core
 ```
+
+Instalar libreria
+
+```
+php artisan sdk:core-install
+```
