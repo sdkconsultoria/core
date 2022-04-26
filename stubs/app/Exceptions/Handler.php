@@ -24,7 +24,7 @@ class Handler extends ExceptionHandler
     /**
      * A list of the exception types that are not reported.
      *
-     * @var array<int, class-string<Throwable>>
+     * @var array<int, class-string<\Throwable>>
      */
     protected $dontReport = [
         APIException::class,
@@ -65,7 +65,7 @@ class Handler extends ExceptionHandler
     {
         if (($e instanceof NotFoundHttpException or $e instanceof ModelNotFoundException) and ($request->is('api/*') or $request->ajax() or $request->wantsJson())) {
             return response([
-                'message' => __('base::responses.404'),
+                'message' => __('core::responses.404'),
                 'details' => $e->getMessage(),
             ], 404);
         }
@@ -76,7 +76,7 @@ class Handler extends ExceptionHandler
 
         if (($e instanceof AuthenticationException || $e instanceof RouteNotFoundException) && $request->is('api/*')) {
             return response()->json([
-                'message' => __('base::responses.401'),
+                'message' => __('core::responses.401'),
                 'code' => 401,
             ], 401);
         }

@@ -27,7 +27,7 @@ trait Model
             return $model;
         }
 
-        throw new APIException(['message' => __('base::responses.404')], 404);
+        throw new APIException(['message' => __('core::responses.404')], 404);
     }
 
     public static function findModelOrCreate(): EloquentModel

@@ -22,7 +22,7 @@ trait Authorize
             return;
         }
 
-        throw new APIException(['message' => __('base::responses.403')], 403);
+        throw new APIException(['message' => __('core::responses.403')], 403);
     }
 
     public function getPermissionName(string $action) : string

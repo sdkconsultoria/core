@@ -57,6 +57,7 @@ class InstallCommand extends Command
         (new Filesystem)->copyDirectory(__DIR__.'/../../../stubs/stubs', base_path('stubs'));
         (new Filesystem)->copyDirectory(__DIR__.'/../../../stubs/routes', base_path('routes'));
         (new Filesystem)->copyDirectory(__DIR__.'/../../../stubs/app', base_path('app'));
+        (new Filesystem)->copyDirectory(__DIR__.'/../../../stubs/resources', base_path('resources'));
     }
 
     private function writteUserChanges()
@@ -78,6 +79,11 @@ class InstallCommand extends Command
         $this->replaceInFile(
             $package,
             $package . "\n         $service_provider",
+            $file);
+
+        $this->replaceInFile(
+            "'locale' => 'en',",
+            "'locale' => 'es',",
             $file);
     }
 
