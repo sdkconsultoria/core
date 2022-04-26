@@ -24,6 +24,6 @@ php artisan sdk:core-install && php artisan migrate:fresh && php artisan sdk:per
 
 crear usuario con su token
 ```
-php artisan sdk:user email=admin@sdkconsultoria.com --token
+php artisan sdk:user admin@sdkconsultoria.com --token
 ```
 
