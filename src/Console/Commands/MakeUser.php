@@ -12,7 +12,7 @@ class MakeUser extends Command
      *
      * @var string
      */
-    protected $signature = 'sdk:user {email=admin@sdkconsultoria.com} {name=default} {lastname=default} {role=super-admin} {--token}';
+    protected $signature = 'sdk:user {email=admin@sdkconsultoria.com} {--name=default} {--lastname=default} {--role=super-admin} {--token}';
 
     /**
      * The console command description.
@@ -52,8 +52,8 @@ class MakeUser extends Command
     private function createUser()
     {
         $email = $this->argument('email');
-        $name = $this->argument('name');
-        $lastname = $this->argument('lastname');
+        $name = $this->option('name');
+        $lastname = $this->option('lastname');
 
         $user = config('auth.providers.users.model')::where('email', $email)->first();
 
@@ -78,7 +78,7 @@ class MakeUser extends Command
 
     private function asingRolesToUser($user)
     {
-        $role = $this->argument('role');
+        $role = $this->option('role');
 
         $user->assignRole([$role]);
     }
