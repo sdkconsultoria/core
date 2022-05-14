@@ -4,7 +4,7 @@ namespace Sdkconsultoria\Core\Console\Commands;
 
 use Illuminate\Console\Command;
 use Spatie\Permission\Models\Permission;
-use Spatie\Permission\Models\Role;
+use Sdkconsultoria\RoleManager\Models\Role;
 use Illuminate\Support\Str;
 
 class MakePermissions extends Command
@@ -73,6 +73,7 @@ class MakePermissions extends Command
         return [
             '/vendor/sdkconsultoria/base/src/Models',
             '/vendor/sdkconsultoria/blog/src/Models',
+            '/vendor/sdkconsultoria/role-manager/src/Models',
             '/app/Models',
         ];
     }
@@ -118,7 +119,7 @@ class MakePermissions extends Command
 
     private function findRoleOrCreate(string $role): Role
     {
-        return Role::firstOrCreate(['name' => $role]);
+        return Role::firstOrCreate(['name' => $role, 'status' => Role::STATUS_ACTIVE]);
     }
 
     private function findPermissionOrCreate(string $model, string $permision): Permission
