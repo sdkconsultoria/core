@@ -84,16 +84,22 @@ class InstallProvider extends \Illuminate\Support\ServiceProvider
 
     private function registerRoutesMacro()
     {
-        Route::macro('SdkApi', function ($uri, $controller) {
-            Route::get("{$uri}", "{$controller}@viewAny")->name("api.{$uri}.index");
-            Route::get("{$uri}/{id}", "{$controller}@view")->name("api.{$uri}.view");
-            Route::post("{$uri}", "{$controller}@storage")->name("api.{$uri}.create");
-            Route::put("{$uri}/{id}", "{$controller}@update")->name("api.{$uri}.update");
-            Route::delete("{$uri}/{id}", "{$controller}@delete")->name("api.{$uri}.delete");
+
+
+        Route::macro('SdkResource', function ($uri, $controller) {
+            Route::SdkApiResourceModel("$uri/api", $controller);
+            Route::SdkSimpleResource("$uri", $controller);
         });
 
         Route::macro('SdkApiResourceModel', function ($uri, $controller) {
             $name = str_replace('/api', '', $uri);
+            Route::SdkApi($uri, $controller, $name);
+
+        });
+
+        Route::macro('SdkApi', function ($uri, $controller, $name = null) {
+            $name = $name ?? $uri;
+
             Route::get("{$uri}", "{$controller}@viewAny")->name("api.{$name}.index");
             Route::get("{$uri}/{id}", "{$controller}@view")->name("api.{$name}.view");
             Route::post("{$uri}", "{$controller}@storage")->name("api.{$name}.create");
@@ -101,8 +107,7 @@ class InstallProvider extends \Illuminate\Support\ServiceProvider
             Route::delete("{$uri}/{id}", "{$controller}@delete")->name("api.{$name}.delete");
         });
 
-        Route::macro('SdkResource', function ($uri, $controller) {
-            Route::SdkApiResourceModel("$uri/api", $controller);
+        Route::macro('SdkSimpleResource', function ($uri, $controller) {
             Route::get("{$uri}", "{$controller}@index")->name("{$uri}.index");
             Route::get("{$uri}/create", "{$controller}@create")->name("{$uri}.create");
             Route::get("{$uri}/update/{id}", "{$controller}@edit")->name("{$uri}.update");
