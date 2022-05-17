@@ -68,18 +68,18 @@ class InstallCommand extends Command
 
     private function writteServiceProvider()
     {
-        $service_provider = "Sdkconsultoria\Core\ServiceProvider::class,";
+        // $service_provider = "Sdkconsultoria\Core\ServiceProvider::class,";
         $file = base_path('config') . '/app.php';
 
-        if(strpos(file_get_contents($file), $service_provider) !== false){
-            return;
-        }
+        // if(strpos(file_get_contents($file), $service_provider) !== false){
+        //     return;
+        // }
 
-        $package = "Package Service Providers...\n         */";
-        $this->replaceInFile(
-            $package,
-            $package . "\n         $service_provider",
-            $file);
+        // $package = "Package Service Providers...\n         */";
+        // $this->replaceInFile(
+        //     $package,
+        //     $package . "\n         $service_provider",
+        //     $file);
 
         $this->replaceInFile(
             "'locale' => 'en',",

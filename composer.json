@@ -29,7 +29,7 @@
     },
     "extra": {
         "laravel": {
-            "providers": ["Sdkconsultoria\\Core\\InstallProvider"]
+            "providers": ["Sdkconsultoria\\Core\\ServiceProvider"]
         }
     }
 }
