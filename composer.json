@@ -17,8 +17,7 @@
     "require": {
         "php": "^8.0",
         "intervention/image": "^2.6",
-        "spatie/laravel-permission": "^5.5",
-        "sdkconsultoria/role-manager": "*"
+        "spatie/laravel-permission": "^5.5"
     },
     "require-dev": {},
     "autoload": {
