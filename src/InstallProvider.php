@@ -15,8 +15,6 @@ class InstallProvider extends \Illuminate\Support\ServiceProvider
     {
         $this->registerCommands();
         $this->registerMigrations();
-        $this->registerMigrationsMacro();
-        $this->registerRoutesMacro();
     }
 
     /**
@@ -26,7 +24,8 @@ class InstallProvider extends \Illuminate\Support\ServiceProvider
      */
     public function register()
     {
-
+        $this->registerRoutesMacro();
+        $this->registerMigrationsMacro();
     }
 
     private function registerCommands()
