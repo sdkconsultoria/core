@@ -1,6 +1,7 @@
 <?php
 
 namespace Sdkconsultoria\Core;
+
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Route;
 
@@ -15,18 +16,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
     {
         $this->registerCommands();
         $this->registerMigrations();
-        $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'core');
-    }
-
-    /**
-     * Register any application services.
-     *
-     * @return void
-     */
-    public function register()
-    {
-        $this->registerRoutesMacro();
-        $this->registerMigrationsMacro();
+        $this->registerTranslations();
     }
 
     private function registerCommands()
@@ -43,7 +33,23 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
 
     private function registerMigrations()
     {
-        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
+    }
+
+    private function registerTranslations()
+    {
+        $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'core');
+    }
+
+    /**
+     * Register any application services.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        $this->registerRoutesMacro();
+        $this->registerMigrationsMacro();
     }
 
     private function registerMigrationsMacro()
@@ -84,8 +90,6 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
 
     private function registerRoutesMacro()
     {
-
-
         Route::macro('SdkResource', function ($uri, $controller) {
             Route::SdkApiResourceModel("$uri/api", $controller);
             Route::SdkSimpleResource("$uri", $controller);
@@ -94,7 +98,6 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
         Route::macro('SdkApiResourceModel', function ($uri, $controller) {
             $name = str_replace('/api', '', $uri);
             Route::SdkApi($uri, $controller, $name);
-
         });
 
         Route::macro('SdkApi', function ($uri, $controller, $name = null) {
