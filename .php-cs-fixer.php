@@ -154,6 +154,7 @@ $finder = Finder::create()
         __DIR__ . '/',
     ])
     ->name('*.php')
+    ->exclude(['database/migrations'])
     ->ignoreVCS(true);
 
 return (new Config())

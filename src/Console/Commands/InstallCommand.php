@@ -4,8 +4,6 @@ namespace Sdkconsultoria\Core\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
-use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Artisan;
 
 class InstallCommand extends Command
 {
@@ -48,22 +46,22 @@ class InstallCommand extends Command
     }
 
     /**
-     * Copia los stubs
+     * Copia los stubs.
      * @return void
      */
     private function copyStubs()
     {
         (new Filesystem)->ensureDirectoryExists(app_path('stubs'));
-        (new Filesystem)->copyDirectory(__DIR__.'/../../../stubs/stubs', base_path('stubs'));
-        (new Filesystem)->copyDirectory(__DIR__.'/../../../stubs/routes', base_path('routes'));
-        (new Filesystem)->copyDirectory(__DIR__.'/../../../stubs/app', base_path('app'));
-        (new Filesystem)->copyDirectory(__DIR__.'/../../../stubs/resources', base_path('resources'));
+        (new Filesystem)->copyDirectory(__DIR__ . '/../../../stubs/stubs', base_path('stubs'));
+        (new Filesystem)->copyDirectory(__DIR__ . '/../../../stubs/routes', base_path('routes'));
+        (new Filesystem)->copyDirectory(__DIR__ . '/../../../stubs/app', base_path('app'));
+        (new Filesystem)->copyDirectory(__DIR__ . '/../../../stubs/resources', base_path('resources'));
     }
 
     private function writteUserChanges()
     {
-        copy(__DIR__.'/../../../stubs/models/User.php', base_path('app/Models/User.php'));
-        copy(__DIR__.'/../../../stubs/factories/UserFactory.php', base_path('database/factories/UserFactory.php'));
+        copy(__DIR__ . '/../../../stubs/models/User.php', base_path('app/Models/User.php'));
+        copy(__DIR__ . '/../../../stubs/factories/UserFactory.php', base_path('database/factories/UserFactory.php'));
     }
 
     private function writteServiceProvider()
@@ -84,7 +82,8 @@ class InstallCommand extends Command
         $this->replaceInFile(
             "'locale' => 'en',",
             "'locale' => 'es',",
-            $file);
+            $file
+        );
     }
 
     protected function replaceInFile($search, $replace, $path)

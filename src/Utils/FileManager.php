@@ -4,5 +4,4 @@ namespace Sdkconsultoria\Core\Utils;
 
 class FileManager
 {
-
 }

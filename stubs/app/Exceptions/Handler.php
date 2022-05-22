@@ -2,13 +2,13 @@
 
 namespace App\Exceptions;
 
-use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
-use Throwable;
-use Sdkconsultoria\Core\Exceptions\APIException;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Sdkconsultoria\Core\Exceptions\APIException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Exception\RouteNotFoundException;
+use Throwable;
 
 class Handler extends ExceptionHandler
 {
@@ -83,7 +83,7 @@ class Handler extends ExceptionHandler
 
         if ($request->is('api/*') || $request->ajax() || $request->wantsJson()) {
             return response()->json(json_decode($e->getMessage()), 500);
-       }
+        }
 
         return parent::render($request, $e);
     }

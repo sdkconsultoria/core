@@ -3,9 +3,9 @@
 namespace Sdkconsultoria\Core\Console\Commands;
 
 use Illuminate\Console\Command;
-use Spatie\Permission\Models\Permission;
-use Sdkconsultoria\ApiBase\Models\Role;
 use Illuminate\Support\Str;
+use Sdkconsultoria\ApiBase\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 class MakePermissions extends Command
 {
@@ -88,11 +88,10 @@ class MakePermissions extends Command
             foreach ($files as $file) {
                 if (str_ends_with($file, '.php')) {
                     $models_files[] = $file;
-                } else{
+                } else {
                     $this->readModelsFromPath("$path/$file", $models_files);
                 }
             }
-
         }
     }
 

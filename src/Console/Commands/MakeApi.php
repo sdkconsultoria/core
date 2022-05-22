@@ -58,7 +58,6 @@ class MakeApi extends Command
     private function createController(string $model)
     {
         Artisan::call("make:controller Api/{$model}Controller --model={$model} --api");
-
     }
 
     private function generateRoute(string $model)
@@ -97,7 +96,7 @@ class MakeApi extends Command
 
     protected function ensureFolderExist(string $folder)
     {
-        if (!file_exists($folder)) {
+        if (! file_exists($folder)) {
             mkdir($folder);
         }
     }

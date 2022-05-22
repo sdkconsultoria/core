@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
-use Spatie\Permission\Traits\HasRoles;
-use Sdkconsultoria\Core\Models\Traits\BaseModel as TraitBaseModel;
-use Sdkconsultoria\Core\Fields\TextField;
 use Illuminate\Support\Facades\Hash;
+use Laravel\Sanctum\HasApiTokens;
+use Sdkconsultoria\Core\Fields\TextField;
+use Sdkconsultoria\Core\Models\Traits\BaseModel as TraitBaseModel;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements MustVerifyEmail
 {

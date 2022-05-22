@@ -47,5 +47,5 @@ return [
         'results' => 'resultados',
         'next' => 'Siguiente',
         'previous' => 'Anterior',
-    ]
+    ],
 ];

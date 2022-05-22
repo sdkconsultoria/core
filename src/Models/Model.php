@@ -2,8 +2,8 @@
 
 namespace Sdkconsultoria\Core\Models;
 
-use Sdkconsultoria\Core\Models\Traits\BaseModel as TraitBaseModel;
 use Illuminate\Database\Eloquent\Model as BaseModel;
+use Sdkconsultoria\Core\Models\Traits\BaseModel as TraitBaseModel;
 
 abstract class Model extends BaseModel
 {

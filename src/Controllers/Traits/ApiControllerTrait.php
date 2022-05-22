@@ -5,7 +5,7 @@ namespace Sdkconsultoria\Core\Controllers\Traits;
 use Illuminate\Http\Request;
 
 /**
- * Permite crear REST API rapidamente
+ * Permite crear REST API rapidamente.
  */
 trait ApiControllerTrait
 {

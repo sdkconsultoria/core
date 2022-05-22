@@ -2,11 +2,8 @@
 
 namespace Sdkconsultoria\Core\Models\Traits;
 
-use Sdkconsultoria\Helpers\Helpers;
-use Illuminate\Support\Str;
-use Base;
 use Illuminate\Database\Eloquent\Model as EloquentModel;
-use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Sdkconsultoria\Core\Exceptions\APIException;
 
 trait Model
@@ -115,7 +112,7 @@ trait Model
                 $filters[] = ['field' => $key];
             } else {
                 $filters[] = ['field' => $filter];
-           }
+            }
         }
 
         return $filters;
@@ -179,7 +176,7 @@ trait Model
                 'results' => __('core::models.pagination.results'),
                 'next' => __('core::models.pagination.next'),
                 'previous' => __('core::models.pagination.previous'),
-            ]
+            ],
         ];
     }
 
@@ -191,6 +188,7 @@ trait Model
     public static function make()
     {
         $called_class = get_called_class();
+
         return new $called_class;
     }
 

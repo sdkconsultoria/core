@@ -2,7 +2,6 @@
 
 namespace Sdkconsultoria\Core\Models\Traits;
 
-
 trait Field
 {
     public static array $fields = [];
@@ -13,7 +12,7 @@ trait Field
             return $this::$fields;
         }
 
-        $this::$fields= [];
+        $this::$fields = [];
 
         foreach ($this->fields() as $index => $field) {
             $this::$fields[$index] = $field->getField();
@@ -40,7 +39,7 @@ trait Field
         $fields = [];
 
         foreach ($this->getFields() as $field) {
-            if (!$field['can_be_saved']) {
+            if (! $field['can_be_saved']) {
                 $fields[] = $field['name'];
             }
         }

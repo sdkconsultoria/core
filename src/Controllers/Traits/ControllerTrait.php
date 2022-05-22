@@ -9,14 +9,14 @@ trait ControllerTrait
     protected function loadData(&$model, $request)
     {
         foreach ($model->getTableColumns() as $key => $value) {
-            if (!empty($request->input($model->getTable().'_'.$value)) || $request->input($model->getTable().'_'.$value) == '0') {
-                $model->$value = $request->input($model->getTable().'_'.$value);
+            if (! empty($request->input($model->getTable() . '_' . $value)) || $request->input($model->getTable() . '_' . $value) == '0') {
+                $model->$value = $request->input($model->getTable() . '_' . $value);
             }
         }
     }
 
     /**
-     * Encuentra el modelo o lo crea
+     * Encuentra el modelo o lo crea.
      * @param  array  $params               [description]
      * @return [type]         [description]
      */
@@ -32,7 +32,7 @@ trait ControllerTrait
 
         $model = $model->where('status', $this->model::STATUS_CREATION)->first();
 
-        if (!$model) {
+        if (! $model) {
             if ($this->create_empty) {
                 $model = new $this->model();
                 $model->status = $this->model::STATUS_CREATION;
@@ -58,12 +58,12 @@ trait ControllerTrait
 
     /**
      * Obtiene el status por default para buscar un usuario
-     * Si devuelve false, no se aplicara ningun tipo de filtro por default a status
+     * Si devuelve false, no se aplicara ningun tipo de filtro por default a status.
      * @return string
      */
     protected function getDefaultStatus($model)
     {
-        return $this->model::where($model->getTable().'.status', $this->model::STATUS_ACTIVE);
+        return $this->model::where($model->getTable() . '.status', $this->model::STATUS_ACTIVE);
     }
 
     /**
@@ -105,7 +105,7 @@ trait ControllerTrait
                 $searchModel->with(\str_replace('-', '', $order['0']));
 
                 if (strpos($order['0'], '-') !== false) {
-                    $order = '-'.$order[1];
+                    $order = '-' . $order[1];
                 } else {
                     $order = $order[1];
                 }
@@ -116,7 +116,7 @@ trait ControllerTrait
 
                 return $searchModel->orderBy(str_replace('-', '', $order), 'DESC');
             } else {
-                $this->filters['order'] = '-'.$order;
+                $this->filters['order'] = '-' . $order;
 
                 return $searchModel->orderBy($order, 'ASC');
             }
@@ -158,34 +158,34 @@ trait ControllerTrait
                             }
                             $models = $models->join(
                                 $table,
-                                $model->filters[$parameter]['join']['local_key'] ?? Str::singular($table).'_id',
+                                $model->filters[$parameter]['join']['local_key'] ?? Str::singular($table) . '_id',
                                 '=',
-                                $model->filters[$parameter]['join']['foreign_key'] ?? $table.'.id'
+                                $model->filters[$parameter]['join']['foreign_key'] ?? $table . '.id'
                             );
                         }
 
                         if (\is_array($filter['column'] ?? false)) {
                             $models = $models->where(function ($query) use ($model, $value, $parameter) {
                                 foreach ($model->filters[$parameter]['column'] as $colum) {
-                                    $query->orWhere($colum, 'like', '%'.$value.'%');
+                                    $query->orWhere($colum, 'like', '%' . $value . '%');
                                 }
                             });
                         } else {
                             switch ($filter['type'] ?? 'like') {
                                 case 'like':
-                                    $models = $models->where($table.'.'.
-                                    ($filter['column'] ?? $filter), 'like', '%'.$value.'%');
+                                    $models = $models->where($table . '.' .
+                                    ($filter['column'] ?? $filter), 'like', '%' . $value . '%');
                                     break;
                                 case 'equal':
-                                    $models = $models->where($table.'.'.
+                                    $models = $models->where($table . '.' .
                                     ($filter['column'] ?? (is_array($filter) ? $parameter : $filter)), '=', $value);
                                     break;
                                 case 'date_less':
-                                    $models = $models->whereDate($table.'.'.
+                                    $models = $models->whereDate($table . '.' .
                                     ($filter['column'] ?? (is_array($filter) ? $parameter : $filter)), '>=', $value);
                                     break;
                                 case 'date_higher':
-                                    $models = $models->whereDate($table.'.'.
+                                    $models = $models->whereDate($table . '.' .
                                     ($filter['column'] ?? (is_array($filter) ? $parameter : $filter)), '<=', $value);
                                     break;
                             }
@@ -209,7 +209,7 @@ trait ControllerTrait
     }
 
     /**
-     * Encuentra un modelo o devuelve un 404
+     * Encuentra un modelo o devuelve un 404.
      *
      * @param  int  $id
      */
@@ -217,7 +217,7 @@ trait ControllerTrait
     {
         $model = $this->getModel($id, $attribute);
 
-        if (!$model) {
+        if (! $model) {
             abort(404);
         }
 
@@ -229,7 +229,7 @@ trait ControllerTrait
         $status = $request->input('status');
 
         if ($status || $status == '0') {
-            $models = $this->model::where($model->getTable().'.status', $status);
+            $models = $this->model::where($model->getTable() . '.status', $status);
         } else {
             $models = $this->getDefaultStatus($model);
         }
@@ -242,6 +242,7 @@ trait ControllerTrait
         }
 
         $models = self::setFilter($models, $request);
+
         return $models->paginate($this->filters['pagination'])->appends($this->filters);
     }
 }

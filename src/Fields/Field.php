@@ -15,8 +15,9 @@ abstract class Field
     public array $filter;
     public bool $can_be_saved = true;
 
-    public static function make(string $name){
-        $model =  new (get_called_class());
+    public static function make(string $name)
+    {
+        $model = new (get_called_class());
         $model->name = $name;
 
         return $model;

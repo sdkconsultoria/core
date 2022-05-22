@@ -2,8 +2,8 @@
 
 namespace Sdkconsultoria\Core\Models\Traits;
 
-use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model as EloquentModel;
+use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
 trait LoadFromRequest
@@ -49,14 +49,13 @@ trait LoadFromRequest
         return $valid_values;
     }
 
-    private function assignValuesToModel(array $values, EloquentModel &$model ) : EloquentModel
+    private function assignValuesToModel(array $values, EloquentModel &$model) : EloquentModel
     {
         $this->removedIgnoredFields($values);
 
         foreach ($values as $attribute => $value) {
             $model->$attribute = $value;
         }
-
 
         return $model;
     }

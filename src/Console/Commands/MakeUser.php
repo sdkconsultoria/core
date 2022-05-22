@@ -3,7 +3,6 @@
 namespace Sdkconsultoria\Core\Console\Commands;
 
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Hash;
 
 class MakeUser extends Command
 {
@@ -43,7 +42,7 @@ class MakeUser extends Command
 
         $token = $this->option('token');
         if ($token) {
-            $this->info("token: " . $user->createToken('token')->plainTextToken);
+            $this->info('token: ' . $user->createToken('token')->plainTextToken);
         }
 
         return 0;
@@ -57,7 +56,7 @@ class MakeUser extends Command
 
         $user = config('auth.providers.users.model')::where('email', $email)->first();
 
-        if($user) {
+        if ($user) {
             $this->info("El usuario $email ya existe");
 
             return $user;

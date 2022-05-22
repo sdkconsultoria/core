@@ -12,7 +12,7 @@ trait ResourceControllerTrait
         $model->isAuthorize('viewAny');
 
         return view($this->view . '.index', [
-            'model' => $model
+            'model' => $model,
         ]);
     }
 
@@ -22,7 +22,7 @@ trait ResourceControllerTrait
         $model->isAuthorize('create');
 
         return view($this->view . '.create', [
-            'model' => $model
+            'model' => $model,
         ]);
     }
 
@@ -32,7 +32,7 @@ trait ResourceControllerTrait
         $model->isAuthorize('update');
 
         return view($this->view . '.edit', [
-            'model' => $model
+            'model' => $model,
         ]);
     }
 
@@ -42,7 +42,7 @@ trait ResourceControllerTrait
         $model->isAuthorize('view');
 
         return view($this->view . '.show', [
-            'model' => $model
+            'model' => $model,
         ]);
     }
 }
