@@ -22,7 +22,8 @@
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.8",
         "phpunit/phpunit": "^9.5",
-        "orchestra/testbench": "^7.5"
+        "orchestra/testbench": "^7.5",
+        "fakerphp/faker": "^1.19"
     },
     "autoload": {
         "files": [],
