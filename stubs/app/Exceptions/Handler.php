@@ -63,7 +63,7 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $e)
     {
-        if (($e instanceof NotFoundHttpException or $e instanceof ModelNotFoundException) and ($request->is('api/*') or $request->ajax() or $request->wantsJson())) {
+        if (($e instanceof NotFoundHttpException || $e instanceof ModelNotFoundException) && ($request->is('api/*') || $request->ajax() or $request->wantsJson())) {
             return response([
                 'message' => __('core::responses.404'),
                 'details' => $e->getMessage(),
