@@ -4,6 +4,7 @@ namespace Sdkconsultoria\Core\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
+use Sdkconsultoria\Core\Service\FileManager;
 
 class InstallCommand extends Command
 {
@@ -30,7 +31,7 @@ class InstallCommand extends Command
     {
         $this->copyStubs();
         $this->writteUserChanges();
-        $this->writteServiceProvider();
+        $this->writteConfig();
 
         $this->info('SDK Core se instalo correctamente.');
     }
@@ -54,30 +55,14 @@ class InstallCommand extends Command
         copy(__DIR__ . '/../../../stubs/factories/UserFactory.php', base_path('database/factories/UserFactory.php'));
     }
 
-    private function writteServiceProvider()
+    private function writteConfig()
     {
-        // $service_provider = "Sdkconsultoria\Core\ServiceProvider::class,";
         $file = base_path('config') . '/app.php';
 
-        // if(strpos(file_get_contents($file), $service_provider) !== false){
-        //     return;
-        // }
-
-        // $package = "Package Service Providers...\n         */";
-        // $this->replaceInFile(
-        //     $package,
-        //     $package . "\n         $service_provider",
-        //     $file);
-
-        $this->replaceInFile(
+        FileManager::replace(
             "'locale' => 'en',",
             "'locale' => 'es',",
             $file
         );
-    }
-
-    protected function replaceInFile($search, $replace, $path)
-    {
-        file_put_contents($path, str_replace($search, $replace, file_get_contents($path)));
     }
 }

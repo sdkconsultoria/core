@@ -22,11 +22,32 @@ class FileManager
         file_put_contents($path, str_replace($search, $replace, file_get_contents($path)));
     }
 
-    public static function loadJsonFile(): void
+    public static function fixString()
     {
     }
 
-    public static function fixString()
+    public static function loadJsonFile(string $path): array
     {
+        return json_decode(file_get_contents($path), true);
+    }
+
+    public static function writteJson(string $path, array $content): void
+    {
+        file_put_contents(
+            $path,
+            json_encode($content, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) . PHP_EOL
+        );
+    }
+
+    public static function appendToJsonKey(string $path, array $new_content, $key): void
+    {
+        $content = self::loadJsonFile($path);
+        $content[$key] = array_merge($content[$key], $new_content);
+        ksort($content[$key]);
+
+        file_put_contents(
+            $path,
+            json_encode($content, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) . PHP_EOL
+        );
     }
 }

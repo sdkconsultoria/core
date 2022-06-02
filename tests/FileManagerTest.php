@@ -55,4 +55,47 @@ class FileManagerTest extends TestCase
         $this->assertStringNotContainsString($data['word'], $file_content);
         $this->assertStringContainsString($new_word, $file_content);
     }
+
+    public function test_append_json_file(): void
+    {
+        $new_content = ['content' => 'new-content'];
+
+        $file_path = $this->createJsonFile();
+        FileManager::appendToJsonKey($file_path, $new_content, 'devDependencies');
+
+        $new_json = $this->getJsonContent();
+        $new_json['devDependencies'] = array_merge($new_json['devDependencies'], $new_content);
+
+        $this->assertJsonStringEqualsJsonFile(
+            $file_path,
+            json_encode($new_json)
+        );
+    }
+
+    protected function createJsonFile(): string
+    {
+        $faker = Factory::create();
+        $file_path = __DIR__ . '/files/' . $faker->unique()->word() . '.json';
+        FileManager::create($file_path);
+        FileManager::writteJson($file_path, $this->getJsonContent());
+
+        return $file_path;
+    }
+
+    protected function getJsonContent()
+    {
+        return [
+            'scripts' => [
+                'dev' => 'npm run development',
+                'development' => 'mix',
+                'watch' => 'mix watch',
+            ],
+            'devDependencies' => [
+                'axios' => '^0.25',
+                'laravel-mix' => '^6.0.6',
+                'lodash' => '^4.17.19',
+                'postcss' => '^8.1.14'
+            ]
+        ];
+    }
 }
