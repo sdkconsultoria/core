@@ -13,17 +13,18 @@ class FileManager
     public static function append(string $file_path, string $text): void
     {
         $file = fopen($file_path, "a") or die("Unable to open file!");
-        fwrite($file, $text);
+        fwrite($file, self::fixString($text));
         fclose($file);
     }
 
     public static function replace(string $search, string $replace, string $path): void
     {
-        file_put_contents($path, str_replace($search, $replace, file_get_contents($path)));
+        file_put_contents($path, str_replace($search, self::fixString($replace), file_get_contents($path)));
     }
 
-    public static function fixString()
+    public static function fixString(string $content): string
     {
+        return str_replace('*', '    ', $content);
     }
 
     public static function loadJsonFile(string $path): array
