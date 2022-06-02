@@ -23,16 +23,6 @@ class MakeApi extends Command
     protected $description = 'Crea una API SDK';
 
     /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
      * Execute the console command.
      *
      * @return int
@@ -42,8 +32,6 @@ class MakeApi extends Command
         $model = $this->argument('model');
         $this->createModel($model);
         $this->createController($model);
-        // $this->fixController($model);
-        // $this->fixController($model);
         $this->generateRoute($model);
 
         $this->info("Se creó correctamente el API {$model}.");
@@ -76,27 +64,9 @@ class MakeApi extends Command
         );
     }
 
-    // private function fixController(string $model)
-    // {
-    //     $controllers_path = app_path('Http/Controllers/Api/');
-
-    //     $this->ensureFolderExist($controllers_path);
-
-    //     $controller = app_path('Http/Controllers/' . $model . 'Controller.php');
-    //     $new_controller = app_path('Http/Controllers/Api/' . $model . 'Controller.php');
-
-    //     if (file_exists($new_controller)) {
-    //         return;
-    //     }
-
-    //     $this->replaceInFile('App\Http\Controllers', 'App\Http\Controllers\Admin', $controller);
-
-    //     rename($controller, $new_controller);
-    // }
-
     protected function ensureFolderExist(string $folder)
     {
-        if (! file_exists($folder)) {
+        if (!file_exists($folder)) {
             mkdir($folder);
         }
     }

@@ -2,9 +2,9 @@
 
 namespace Sdkconsultoria\Core\Tests;
 
+use Faker\Factory;
 use PHPUnit\Framework\TestCase;
 use Sdkconsultoria\Core\Service\FileManager;
-use Faker\Factory;
 
 class FileManagerTest extends TestCase
 {
@@ -94,8 +94,8 @@ class FileManagerTest extends TestCase
                 'axios' => '^0.25',
                 'laravel-mix' => '^6.0.6',
                 'lodash' => '^4.17.19',
-                'postcss' => '^8.1.14'
-            ]
+                'postcss' => '^8.1.14',
+            ],
         ];
     }
 }

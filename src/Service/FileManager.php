@@ -6,13 +6,13 @@ class FileManager
 {
     public static function create(string $file_path): void
     {
-        $file = fopen($file_path, "w") or die("Unable to open file!");
+        $file = fopen($file_path, 'w') or die('Unable to open file!');
         fclose($file);
     }
 
     public static function append(string $file_path, string $text): void
     {
-        $file = fopen($file_path, "a") or die("Unable to open file!");
+        $file = fopen($file_path, 'a') or die('Unable to open file!');
         fwrite($file, self::fixString($text));
         fclose($file);
     }

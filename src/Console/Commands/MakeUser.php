@@ -21,16 +21,6 @@ class MakeUser extends Command
     protected $description = 'Crear un usuario y/o obtiene el token';
 
     /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
      * Execute the console command.
      *
      * @return int
@@ -50,11 +40,12 @@ class MakeUser extends Command
 
     private function createUser()
     {
+        $user_class = config('auth.providers.users.model');
         $email = $this->argument('email');
         $name = $this->option('name');
         $lastname = $this->option('lastname');
 
-        $user = config('auth.providers.users.model')::where('email', $email)->first();
+        $user = $user_class::where('email', $email)->first();
 
         if ($user) {
             $this->info("El usuario $email ya existe");
@@ -62,12 +53,12 @@ class MakeUser extends Command
             return $user;
         }
 
-        $user = new (config('auth.providers.users.model'));
+        $user = new ($user_class);
         $user->name = $name;
         $user->lastname = $lastname;
         $user->email = $email;
         $user->password = 'password';
-        $user->status = config('auth.providers.users.model')::STATUS_ACTIVE;
+        $user->status = $user_class::STATUS_ACTIVE;
         $user->save();
 
         $this->info("Se creo el usuario $email");
