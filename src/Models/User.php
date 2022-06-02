@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace Sdkconsultoria\Core\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -27,7 +27,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     protected function fields()
     {
-        return[
+        return [
             TextField::make('name')
                 ->label('Nombre')
                 ->rules(['required'])
@@ -56,7 +56,7 @@ class User extends Authenticatable implements MustVerifyEmail
         ];
     }
 
-    public function getTranslations() : array
+    public function getTranslations(): array
     {
         return [
             'singular' => 'Usuario',

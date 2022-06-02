@@ -17,7 +17,7 @@ return new class extends Migration
             $table->creatingFields();
             $table->statusField();
             $table->timestamp('deleted_at')->nullable();
-            $table->string('lastname');
+            $table->string('lastname')->nullable();
             $table->string('lastname_2')->nullable();
             $table->string('slug')->nullable();
         });

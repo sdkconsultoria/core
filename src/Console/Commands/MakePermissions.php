@@ -4,7 +4,7 @@ namespace Sdkconsultoria\Core\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Str;
-use Sdkconsultoria\ApiBase\Models\Role;
+use Sdkconsultoria\Core\Models\Role;
 use Spatie\Permission\Models\Permission;
 
 class MakePermissions extends Command
