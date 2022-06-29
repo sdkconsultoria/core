@@ -199,12 +199,12 @@ trait Model
 
     public function getRoute(string $name, $params = [])
     {
-        return route($this->getClassName('kebab') . '.' . $name, $params);
+        return route($this->getClassName('kebab').'.'.$name, $params);
     }
 
     public function getRouteApi(string $name, $params = [])
     {
-        return route('api.' . $this->getClassName('kebab') . '.' . $name, $params);
+        return route('api.'.$this->getClassName('kebab').'.'.$name, $params);
     }
 
     public function getIndexRoutes(): array

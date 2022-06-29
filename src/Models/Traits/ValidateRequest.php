@@ -8,7 +8,7 @@ use Sdkconsultoria\Core\Exceptions\APIException;
 
 trait ValidateRequest
 {
-    public function getValidationRules($request = '') : array
+    public function getValidationRules($request = ''): array
     {
         $rules = [];
         foreach ($this->getFields() as $field) {
@@ -18,7 +18,7 @@ trait ValidateRequest
         return $rules;
     }
 
-    public function getUpdateValidationRules($request = '') : array
+    public function getUpdateValidationRules($request = ''): array
     {
         return $this->getValidationRules($request);
     }

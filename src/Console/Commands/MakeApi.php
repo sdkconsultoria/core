@@ -51,7 +51,7 @@ class MakeApi extends Command
     private function generateRoute(string $model)
     {
         $singular = Str::singular(Str::kebab($model));
-        $route = '    Route::SdkApi(\'' . $singular . '\', ' . $model . 'Controller::class);';
+        $route = '    Route::SdkApi(\''.$singular.'\', '.$model.'Controller::class);';
 
         if (strpos(file_get_contents(base_path('routes/api.php')), $route) !== false) {
             return;
@@ -59,14 +59,14 @@ class MakeApi extends Command
 
         $this->replaceInFile(
             "->prefix('v1')->group(function () {",
-            "->prefix('v1')->group(function () {\n" . $route,
+            "->prefix('v1')->group(function () {\n".$route,
             base_path('routes/api.php')
         );
     }
 
     protected function ensureFolderExist(string $folder)
     {
-        if (!file_exists($folder)) {
+        if (! file_exists($folder)) {
             mkdir($folder);
         }
     }

@@ -5,14 +5,23 @@ namespace Sdkconsultoria\Core\Fields;
 abstract class Field
 {
     public bool $visible_on_index = true;
+
     public bool $visible_on_create = true;
+
     public bool $visible_on_update = true;
+
     public bool $visible_on_show = true;
+
     public string $name;
+
     public array $rules;
+
     public string $label;
+
     public array $searchable;
+
     public array $filter;
+
     public bool $can_be_saved = true;
 
     public static function make(string $name)
@@ -28,7 +37,7 @@ abstract class Field
         return $this->name;
     }
 
-    public function label(string $label) : self
+    public function label(string $label): self
     {
         $this->label = $label;
 

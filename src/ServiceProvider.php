@@ -33,12 +33,12 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
 
     private function registerMigrations()
     {
-        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
+        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
     }
 
     private function registerTranslations()
     {
-        $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'core');
+        $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'core');
     }
 
     /**

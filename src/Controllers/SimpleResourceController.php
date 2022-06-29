@@ -12,5 +12,6 @@ class SimpleResourceController extends Controller
     use ResourceControllerTrait;
 
     protected $model = '';
+
     protected $view = 'base::back.default';
 }

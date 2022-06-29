@@ -13,7 +13,7 @@ trait LoadFromRequest
         return strtolower(Str::kebab(class_basename($this)));
     }
 
-    public function loadDataFromCreateRequest(Request $request) : void
+    public function loadDataFromCreateRequest(Request $request): void
     {
         $this->validateRequest($request, $this->getValidationRules());
         $attributes = $this->getModelAttributesFromRules();
@@ -22,7 +22,7 @@ trait LoadFromRequest
         $this->loadDataFromRequest($request, $valid_attributes);
     }
 
-    public function loadDataFromUpdateRequest(Request $request) : void
+    public function loadDataFromUpdateRequest(Request $request): void
     {
         $this->validateRequest($request, $this->getUpdateValidationRules());
         $attributes = $this->getModelAttributesFromRules('getUpdateValidationRules');
@@ -31,12 +31,12 @@ trait LoadFromRequest
         $this->loadDataFromRequest($request, $valid_attributes);
     }
 
-    public function loadDataFromRequest(Request $request, array $atributes) : void
+    public function loadDataFromRequest(Request $request, array $atributes): void
     {
         $this->assignValuesToModel($atributes, $this);
     }
 
-    private function loadValidFieldsFromRequest(Request $request, array $attributes) : array
+    private function loadValidFieldsFromRequest(Request $request, array $attributes): array
     {
         $valid_values = [];
 
@@ -49,7 +49,7 @@ trait LoadFromRequest
         return $valid_values;
     }
 
-    private function assignValuesToModel(array $values, EloquentModel &$model) : EloquentModel
+    private function assignValuesToModel(array $values, EloquentModel &$model): EloquentModel
     {
         $this->removedIgnoredFields($values);
 
@@ -60,7 +60,7 @@ trait LoadFromRequest
         return $model;
     }
 
-    public function getModelAttributesFromRules(string $rules = 'getValidationRules', $request = '') : array
+    public function getModelAttributesFromRules(string $rules = 'getValidationRules', $request = ''): array
     {
         $rules_array = $this->$rules($request);
         $attributes = [];

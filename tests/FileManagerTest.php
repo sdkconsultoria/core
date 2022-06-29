@@ -11,7 +11,7 @@ class FileManagerTest extends TestCase
     public function test_create_file(): string
     {
         $faker = Factory::create();
-        $file_path = __DIR__ . '/files/' . $faker->unique()->word();
+        $file_path = __DIR__.'/files/'.$faker->unique()->word();
 
         FileManager::create($file_path);
 
@@ -75,7 +75,7 @@ class FileManagerTest extends TestCase
     protected function createJsonFile(): string
     {
         $faker = Factory::create();
-        $file_path = __DIR__ . '/files/' . $faker->unique()->word() . '.json';
+        $file_path = __DIR__.'/files/'.$faker->unique()->word().'.json';
         FileManager::create($file_path);
         FileManager::writteJson($file_path, $this->getJsonContent());
 

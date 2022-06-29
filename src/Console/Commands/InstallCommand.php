@@ -38,26 +38,27 @@ class InstallCommand extends Command
 
     /**
      * Copia los stubs.
+     *
      * @return void
      */
     private function copyStubs()
     {
         (new Filesystem)->ensureDirectoryExists(app_path('stubs'));
-        (new Filesystem)->copyDirectory(__DIR__ . '/../../../stubs/stubs', base_path('stubs'));
-        (new Filesystem)->copyDirectory(__DIR__ . '/../../../stubs/routes', base_path('routes'));
-        (new Filesystem)->copyDirectory(__DIR__ . '/../../../stubs/app', base_path('app'));
-        (new Filesystem)->copyDirectory(__DIR__ . '/../../../stubs/resources', base_path('resources'));
+        (new Filesystem)->copyDirectory(__DIR__.'/../../../stubs/stubs', base_path('stubs'));
+        (new Filesystem)->copyDirectory(__DIR__.'/../../../stubs/routes', base_path('routes'));
+        (new Filesystem)->copyDirectory(__DIR__.'/../../../stubs/app', base_path('app'));
+        (new Filesystem)->copyDirectory(__DIR__.'/../../../stubs/resources', base_path('resources'));
     }
 
     private function writteUserChanges()
     {
-        copy(__DIR__ . '/../../../stubs/models/User.php', base_path('app/Models/User.php'));
-        copy(__DIR__ . '/../../../stubs/factories/UserFactory.php', base_path('database/factories/UserFactory.php'));
+        copy(__DIR__.'/../../../stubs/models/User.php', base_path('app/Models/User.php'));
+        copy(__DIR__.'/../../../stubs/factories/UserFactory.php', base_path('database/factories/UserFactory.php'));
     }
 
     private function writteConfig()
     {
-        $file = base_path('config') . '/app.php';
+        $file = base_path('config').'/app.php';
 
         FileManager::replace(
             "'locale' => 'en',",

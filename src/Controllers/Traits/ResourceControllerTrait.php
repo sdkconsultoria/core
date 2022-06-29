@@ -11,7 +11,7 @@ trait ResourceControllerTrait
         $model = new $this->model;
         $model->isAuthorize('viewAny');
 
-        return view($this->view . '.index', [
+        return view($this->view.'.index', [
             'model' => $model,
         ]);
     }
@@ -21,7 +21,7 @@ trait ResourceControllerTrait
         $model = new $this->model;
         $model->isAuthorize('create');
 
-        return view($this->view . '.create', [
+        return view($this->view.'.create', [
             'model' => $model,
         ]);
     }
@@ -31,7 +31,7 @@ trait ResourceControllerTrait
         $model = $this->model::findModel($id);
         $model->isAuthorize('update');
 
-        return view($this->view . '.edit', [
+        return view($this->view.'.edit', [
             'model' => $model,
         ]);
     }
@@ -41,7 +41,7 @@ trait ResourceControllerTrait
         $model = $this->model::findModel($id);
         $model->isAuthorize('view');
 
-        return view($this->view . '.show', [
+        return view($this->view.'.show', [
             'model' => $model,
         ]);
     }

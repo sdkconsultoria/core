@@ -25,7 +25,7 @@ trait Authorize
         throw new APIException(['message' => __('core::responses.403')], 403);
     }
 
-    public function getPermissionName(string $action) : string
+    public function getPermissionName(string $action): string
     {
         $resouce = Str::snake(class_basename($this));
 

@@ -25,7 +25,7 @@ trait SearchableTrait
         return $query;
     }
 
-    private function parseFilterOptions($key, $value) : array
+    private function parseFilterOptions($key, $value): array
     {
         $options = [
             'name' => null,

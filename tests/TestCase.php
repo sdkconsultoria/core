@@ -9,13 +9,14 @@ use Spatie\Permission\PermissionServiceProvider;
 abstract class TestCase extends Orchestra
 {
     protected static $migration;
+
     protected static $customMigration;
 
     public function setUp(): void
     {
         parent::setUp();
 
-        if (!self::$migration) {
+        if (! self::$migration) {
             $this->loadLaravelMigrations();
             $this->artisan('migrate')->run();
 
@@ -36,8 +37,7 @@ abstract class TestCase extends Orchestra
     }
 
     /**
-     * @param \Illuminate\Foundation\Application $app
-     *
+     * @param  \Illuminate\Foundation\Application  $app
      * @return array
      */
     protected function getPackageProviders($app)
