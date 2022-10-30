@@ -22,6 +22,11 @@ class FileManager
         file_put_contents($path, str_replace($search, self::fixString($replace), file_get_contents($path)));
     }
 
+    public static function writteAfter(string $search, string $add, string $path): void
+    {
+        file_put_contents($path, str_replace($search, $search.self::fixString($add), file_get_contents($path)));
+    }
+
     public static function fixString(string $content): string
     {
         return str_replace('*', '    ', $content);

@@ -31,7 +31,7 @@ class Handler extends ExceptionHandler
     ];
 
     /**
-     * A list of the inputs that are never flashed for validation exceptions.
+     * A list of the inputs that are never flashed to the session on validation exceptions.
      *
      * @var array<int, string>
      */
@@ -75,7 +75,7 @@ class Handler extends ExceptionHandler
             return response()->json(json_decode($e->getMessage()), $e->getCode());
         }
 
-        if (($e instanceof AuthenticationException || $e instanceof RouteNotFoundException) && $request->is('api/*')) {
+        if (($e instanceof AuthenticationException || $e instanceof RouteNotFoundException) || $e instanceof AuthorizationException&& $request->is('api/*')) {
             return response()->json([
                 'message' => __('core::responses.401'),
                 'code' => 401,

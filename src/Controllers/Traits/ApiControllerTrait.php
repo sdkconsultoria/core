@@ -16,7 +16,7 @@ trait ApiControllerTrait
     public function viewAny(Request $request)
     {
         $model = new $this->model;
-        $model->isAuthorize('viewAny');
+        $this->authorize('viewAny', $model);
 
         $query = $model::where('status', $model::STATUS_ACTIVE);
         $query = $this->searchable($query, $request);
@@ -28,7 +28,7 @@ trait ApiControllerTrait
     public function view(Request $request, $id)
     {
         $model = $this->model::findModel($id);
-        $model->isAuthorize('view');
+        $this->authorize('view', $model);
 
         return response()
             ->json(['model' => $model->getAttributes()]);
@@ -37,7 +37,7 @@ trait ApiControllerTrait
     public function storage(Request $request)
     {
         $model = $this->model::findModelOrCreate();
-        $model->isAuthorize('create');
+        $this->authorize('create', $model);
         $model->loadDataFromCreateRequest($request);
         $model->status = $model::STATUS_ACTIVE;
         $model->save();
@@ -49,7 +49,7 @@ trait ApiControllerTrait
     public function update(Request $request, $id)
     {
         $model = $this->model::findModel($id);
-        $model->isAuthorize('update');
+        $this->authorize('update', $model);
         $model->loadDataFromCreateRequest($request);
         $model->save();
 
@@ -60,7 +60,7 @@ trait ApiControllerTrait
     public function delete($id)
     {
         $model = $this->model::findModel($id);
-        $model->isAuthorize('delete');
+        $this->authorize('delete', $model);
         $model->status = $model::STATUS_DELETED;
         $model->delete();
 

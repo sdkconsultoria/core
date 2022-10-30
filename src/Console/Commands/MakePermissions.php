@@ -98,6 +98,7 @@ class MakePermissions extends Command
     protected function createPermissions()
     {
         $models = $this->getAllModels();
+        $models = array_merge($models, $this->getDefaultPermissions());
         $permisions = ['viewAny', 'view', 'create', 'update', 'delete', 'restore', 'forceDelete'];
 
         foreach ($models as $model) {
@@ -124,5 +125,13 @@ class MakePermissions extends Command
     private function findPermissionOrCreate(string $model, string $permision): Permission
     {
         return Permission::firstOrCreate(['name' => "{$model}:{$permision}"]);
+    }
+
+    private function getDefaultPermissions(): array
+    {
+        return [
+            'permission',
+            'rol',
+        ];
     }
 }

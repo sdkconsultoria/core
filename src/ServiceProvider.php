@@ -17,6 +17,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
         $this->registerCommands();
         $this->registerMigrations();
         $this->registerTranslations();
+        $this->registerRoutes();
     }
 
     private function registerCommands()
@@ -116,5 +117,10 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
             Route::get("{$uri}/update/{id}", "{$controller}@edit")->name("{$uri}.update");
             Route::get("{$uri}/{id}", "{$controller}@show")->name("{$uri}.view");
         });
+    }
+
+    private function registerRoutes()
+    {
+        $this->loadRoutesFrom(__DIR__.'/../routes/api.php');
     }
 }

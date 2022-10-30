@@ -5,6 +5,7 @@ namespace Sdkconsultoria\Core\Console\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
 use Sdkconsultoria\Core\Service\FileManager;
+use Artisan;
 
 class InstallCommand extends Command
 {
@@ -32,6 +33,7 @@ class InstallCommand extends Command
         $this->copyStubs();
         $this->writteUserChanges();
         $this->writteConfig();
+        Artisan::call('sdk:permissions');
 
         $this->info('SDK Core se instalo correctamente.');
     }
@@ -65,5 +67,11 @@ class InstallCommand extends Command
             "'locale' => 'es',",
             $file
         );
+
+        // FileManager::writteAfter(
+        //     "App\Providers\RouteServiceProvider::class,",
+        //     "\n**Sdkconsultoria\Core\Providers\AuthServiceProvider::class,",
+        //     $file
+        // );
     }
 }
