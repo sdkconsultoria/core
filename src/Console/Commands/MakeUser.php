@@ -59,6 +59,7 @@ class MakeUser extends Command
         $user->email = $email;
         $user->password = 'password';
         $user->status = $user_class::STATUS_ACTIVE;
+        $user->email_verified_at = date('Y-m-d h:i:s');
         $user->save();
 
         $this->info("Se creo el usuario $email");
