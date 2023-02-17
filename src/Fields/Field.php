@@ -14,6 +14,10 @@ abstract class Field
 
     public string $name;
 
+    public array $extra = [];
+
+    public string $tooltip = '';
+
     public array $rules;
 
     public string $label;
@@ -40,6 +44,13 @@ abstract class Field
     public function label(string $label): self
     {
         $this->label = $label;
+
+        return $this;
+    }
+
+    public function tooltip(string $tooltip): self
+    {
+        $this->tooltip = $tooltip;
 
         return $this;
     }
@@ -75,10 +86,12 @@ abstract class Field
         return [
             'component' => $this->component,
             'name' => $this->name,
+            'tooltip' => $this->tooltip,
             'label' => $this->label,
             'rules' => $this->rules,
             'filter' => $this->name,
             'can_be_saved' => $this->can_be_saved,
+            'extra' => $this->extra,
             'visible_on' => [
                 'index' => $this->visible_on_index,
                 'update' => $this->visible_on_update,
