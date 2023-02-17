@@ -39,7 +39,7 @@ class MakeApi extends Command
 
     private function createModel(string $model)
     {
-        Artisan::call("make:model {$model} -mf --test");
+        Artisan::call("make:model {$model} -mf --test --policy");
         $this->comment('Modelo Creado.');
     }
 
