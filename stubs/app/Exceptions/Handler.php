@@ -75,7 +75,7 @@ class Handler extends ExceptionHandler
             return response()->json(json_decode($e->getMessage()), $e->getCode());
         }
 
-        if (($e instanceof AuthenticationException || $e instanceof RouteNotFoundException) || $e instanceof AuthorizationException&& $request->is('api/*')) {
+        if ((($e instanceof AuthenticationException || $e instanceof RouteNotFoundException) || $e instanceof AuthorizationException) && $request->is('api/*')) {
             return response()->json([
                 'message' => __('core::responses.401'),
                 'code' => 401,
