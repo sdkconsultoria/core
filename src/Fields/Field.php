@@ -22,7 +22,7 @@ abstract class Field
 
     public string $label;
 
-    public array $searchable;
+    public bool $searchable = true;
 
     public array $filter;
 
@@ -92,6 +92,7 @@ abstract class Field
             'filter' => $this->name,
             'can_be_saved' => $this->can_be_saved,
             'extra' => $this->extra,
+            'searchable' => $this->searchable,
             'visible_on' => [
                 'index' => $this->visible_on_index,
                 'update' => $this->visible_on_update,

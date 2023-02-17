@@ -3,6 +3,7 @@
 namespace Sdkconsultoria\Core\Controllers\Traits;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * Permite crear REST API rapidamente.
@@ -39,6 +40,7 @@ trait ApiControllerTrait
         $model = $this->model::findModelOrCreate();
         $this->authorize('create', $model);
         $model->loadDataFromCreateRequest($request);
+        $this->processFilesIfExist($model, $request);
         $model->status = $model::STATUS_ACTIVE;
         $model->save();
 
@@ -50,7 +52,8 @@ trait ApiControllerTrait
     {
         $model = $this->model::findModel($id);
         $this->authorize('update', $model);
-        $model->loadDataFromCreateRequest($request);
+        $model->loadDataFromUpdateRequest($request);
+        $this->processFilesIfExist($model, $request);
         $model->save();
 
         return response()
@@ -66,5 +69,18 @@ trait ApiControllerTrait
 
         return response()
             ->json(['model' => $model->getAttributes()]);
+    }
+
+    private function processFilesIfExist(&$model, $request)
+    {
+        foreach ($model->getFields() as $field) {
+
+            if ($field['component'] == 'FileField') {
+                $file = $request->file($field['name']);
+                Storage::disk($field['disk'])->putFileAs($field['folder'], $file, $model->id.'.'.$file->getClientOriginalExtension());
+
+                $model->{$field['name']} = Storage::disk($field['disk'])->url($field['folder'] . $model->id.'.'.$file->getClientOriginalExtension());
+            }
+        }
     }
 }

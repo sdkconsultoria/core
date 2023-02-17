@@ -97,7 +97,9 @@ trait Model
     {
         $filters = [];
         foreach ($this->getFields()  as $field) {
-            $filters[] = $field['filter'];
+            if ($field['searchable']) {
+                $filters[] = $field['filter'];
+            }
         }
 
         return $filters;
