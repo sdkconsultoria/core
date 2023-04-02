@@ -62,6 +62,13 @@ abstract class Field
         return $this;
     }
 
+    public function rulesUpdate(array $rules)
+    {
+        $this->rules = $rules;
+
+        return $this;
+    }
+
     public function filter($filter)
     {
         return $this;

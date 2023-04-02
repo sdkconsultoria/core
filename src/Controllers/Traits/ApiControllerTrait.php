@@ -77,9 +77,11 @@ trait ApiControllerTrait
 
             if ($field['component'] == 'FileField') {
                 $file = $request->file($field['name']);
-                Storage::disk($field['disk'])->putFileAs($field['folder'], $file, $model->id.'.'.$file->getClientOriginalExtension());
+                if ($file) {
+                    Storage::disk($field['disk'])->putFileAs($field['folder'], $file, $model->id.'.'.$file->getClientOriginalExtension());
 
-                $model->{$field['name']} = Storage::disk($field['disk'])->url($field['folder'] . $model->id.'.'.$file->getClientOriginalExtension());
+                    $model->{$field['name']} = Storage::disk($field['disk'])->url($field['folder'] . $model->id.'.'.$file->getClientOriginalExtension());
+                }
             }
         }
     }
