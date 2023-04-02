@@ -15,8 +15,8 @@ trait Field
         $this::$fields = [];
 
         foreach ($this->fields() as $index => $field) {
-            $this::$fields[$index] = $field->getField();
-            $this::$fields[$index]['value'] = $this->{$this::$fields[$index]['name']};
+            $this::$fields[$field->name] = $field->getField();
+            $this::$fields[$field->name]['value'] = $this->{$this::$fields[$field->name]['name']};
         }
 
         return $this::$fields;
