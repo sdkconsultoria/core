@@ -4,6 +4,12 @@ namespace Sdkconsultoria\Core\Fields;
 
 abstract class Field
 {
+    public $component = '';
+
+    private $onSave = '';
+
+    private $loadOptionsFromUrl = '';
+
     public bool $visible_on_index = true;
 
     public bool $visible_on_create = true;
@@ -115,5 +121,10 @@ abstract class Field
         $this->visible_on_index = false;
 
         return $this;
+    }
+
+    public function setComponent(string $component)
+    {
+        $this->component = $component;
     }
 }
