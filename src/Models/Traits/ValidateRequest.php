@@ -20,8 +20,12 @@ trait ValidateRequest
 
     public function getUpdateValidationRules($request = ''): array
     {
-        return $this->getValidationRules($request);
-    }
+        $rules = [];
+        foreach ($this->getFields() as $field) {
+            $rules[$field['name']] = $field['rulesUpdate'];
+        }
+
+        return $rules;    }
 
     public function validateRequest(Request $request, array $rules)
     {

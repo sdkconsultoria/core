@@ -15,6 +15,20 @@ trait Model
         parent::save($options);
     }
 
+    public function processFieldsWithCustomSave()
+    {
+        $fields = $this->fields();
+
+        foreach ($fields as $key => $field) {
+            if ($field->saveAsFunction) {
+                if ($this->ignoredFields[$field->name]) {
+                    $function = $field->saveAsFunction;
+                    $function($this, $this->ignoredFields[$field->name]);
+                }
+            }
+        }
+    }
+
     public static function findModel($id)
     {
         $class = get_called_class();

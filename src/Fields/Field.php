@@ -8,6 +8,8 @@ abstract class Field
 
     private $onSave = '';
 
+    public $saveAsFunction;
+
     private $loadOptionsFromUrl = '';
 
     public bool $visible_on_index = true;
@@ -25,6 +27,8 @@ abstract class Field
     public string $tooltip = '';
 
     public array $rules;
+
+    public array $rulesUpdate;
 
     public string $label;
 
@@ -68,9 +72,9 @@ abstract class Field
         return $this;
     }
 
-    public function rulesUpdate(array $rules)
+    public function rulesUpdate(array $rulesUpdate)
     {
-        $this->rules = $rules;
+        $this->rulesUpdate = $rulesUpdate;
 
         return $this;
     }
@@ -102,10 +106,12 @@ abstract class Field
             'tooltip' => $this->tooltip,
             'label' => $this->label,
             'rules' => $this->rules,
+            'rulesUpdate' => $this->rulesUpdate ?? $this->rules,
             'filter' => $this->name,
             'can_be_saved' => $this->can_be_saved,
             'extra' => $this->extra,
             'searchable' => $this->searchable,
+            'loadOptionsFromUrl' => $this->loadOptionsFromUrl,
             'visible_on' => [
                 'index' => $this->visible_on_index,
                 'update' => $this->visible_on_update,
@@ -126,5 +132,23 @@ abstract class Field
     public function setComponent(string $component)
     {
         $this->component = $component;
+
+        return $this;
+
+    }
+
+    public function loadOptionsFromUrl(string $url)
+    {
+        $this->loadOptionsFromUrl = $url;
+
+        return $this;
+    }
+
+    public function saveAs($function)
+    {
+        $this->can_be_saved = false;
+        $this->saveAsFunction = $function;
+
+        return $this;
     }
 }

@@ -40,9 +40,10 @@ trait ApiControllerTrait
         $model = $this->model::findModelOrCreate();
         $this->authorize('create', $model);
         $model->loadDataFromCreateRequest($request);
-        $this->processFilesIfExist($model, $request);
         $model->status = $model::STATUS_ACTIVE;
         $model->save();
+        $this->processFilesIfExist($model, $request);
+        $model->processFieldsWithCustomSave();
 
         return response()
             ->json(['model' => $model->getAttributes()]);
@@ -53,8 +54,9 @@ trait ApiControllerTrait
         $model = $this->model::findModel($id);
         $this->authorize('update', $model);
         $model->loadDataFromUpdateRequest($request);
-        $this->processFilesIfExist($model, $request);
         $model->save();
+        $this->processFilesIfExist($model, $request);
+        $model->processFieldsWithCustomSave();
 
         return response()
             ->json(['model' => $model->getAttributes()]);
@@ -78,7 +80,6 @@ trait ApiControllerTrait
             if ($field['component'] == 'FileField') {
                 $file = $request->file($field['name']);
                 if ($file) {
-                    $model->save();
                     Storage::disk($field['disk'])->putFileAs($field['folder'], $file, $model->id.'.'.$file->getClientOriginalExtension());
 
                     $model->{$field['name']} = Storage::disk($field['disk'])->url($field['folder'] . $model->id.'.'.$file->getClientOriginalExtension());

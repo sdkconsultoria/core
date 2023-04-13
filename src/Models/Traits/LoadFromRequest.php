@@ -8,6 +8,8 @@ use Illuminate\Support\Str;
 
 trait LoadFromRequest
 {
+    protected $ignoredFields = [];
+
     public function getApiEndpoint()
     {
         return strtolower(Str::kebab(class_basename($this)));
@@ -75,6 +77,7 @@ trait LoadFromRequest
     protected function removedIgnoredFields(array &$values): array
     {
         foreach ($this->getIgnoredFields() as $field) {
+            $this->ignoredFields[$field] = $values[$field];
             unset($values[$field]);
         }
 
