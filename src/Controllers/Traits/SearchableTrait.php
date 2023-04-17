@@ -22,6 +22,8 @@ trait SearchableTrait
             }
         }
 
+        $this->searchModelsByRequest($request, $query);
+
         return $query;
     }
 
@@ -86,5 +88,21 @@ trait SearchableTrait
                 $query->where($parsed_options['column'], 'like', "%{$parsed_options['filter_value']}%");
                 break;
         }
+    }
+
+    protected function searchModelsByRequest(Request $request, &$models)
+    {
+        foreach ($this->filters() as $index => $filter) {
+            if($request->$index) {
+                $models = $filter($models, $request->$index);
+            }
+        }
+
+        return $models;
+    }
+
+    protected function filters(): array
+    {
+        return [];
     }
 }
