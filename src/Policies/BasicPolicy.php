@@ -71,7 +71,7 @@ abstract class BasicPolicy
 
     protected function getModelName()
     {
-        return Str::kebab($this->getName());
+        return Str::snake($this->getName());
     }
 
     private function getName() {
