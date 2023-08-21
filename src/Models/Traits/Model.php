@@ -5,7 +5,7 @@ namespace Sdkconsultoria\Core\Models\Traits;
 use Illuminate\Database\Eloquent\Model as EloquentModel;
 use Illuminate\Support\Str;
 use Sdkconsultoria\Core\Exceptions\APIException;
-
+use Date;
 trait Model
 {
     public static $keyId = 'id';
@@ -257,5 +257,10 @@ trait Model
     public function getKeyId()
     {
         return $this->{$this::$keyId};
+    }
+
+    public function getCreatedAtAttribute($value): string
+    {
+        return  Date::createFromDate($value)->format('l j F Y \a \l\a\s H:i');
     }
 }

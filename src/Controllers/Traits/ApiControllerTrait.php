@@ -14,6 +14,11 @@ trait ApiControllerTrait
     use OrderableTrait;
     use PaginationTrait;
 
+    protected function customFilters($query, $request)
+    {
+        return $query;
+    }
+
     public function viewAny(Request $request)
     {
         $model = new $this->model;
@@ -21,6 +26,7 @@ trait ApiControllerTrait
 
         $query = $model::where('status', $model::STATUS_ACTIVE);
         $query = $this->searchable($query, $request);
+        $query = $this->customFilters($query, $request);
         $query = $this->applyOrderByToQuery($query, $request->input('order'));
 
         return $this->setPagination($query, $request);
