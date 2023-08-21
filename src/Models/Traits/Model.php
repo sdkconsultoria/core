@@ -261,6 +261,6 @@ trait Model
 
     public function getCreatedAtAttribute($value): string
     {
-        return  Date::createFromDate($value)->format('l j F Y \a \l\a\s H:i');
+        return  Date::createFromDate($value)->setTimezone('America/Mexico_city')->format('l j F Y \a \l\a\s H:i');
     }
 }
