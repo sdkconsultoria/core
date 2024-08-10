@@ -151,4 +151,11 @@ abstract class Field
 
         return $this;
     }
+
+    public function addExtra($key, $value)
+    {
+        $this->extra[$key] = $value;
+
+        return $this;
+    }
 }
